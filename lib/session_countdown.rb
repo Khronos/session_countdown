@@ -87,11 +87,15 @@ elsif Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR == 0
     include SessionCountdown
   end
 
-else
+elsif Rails::VERSION::MAJOR == 3 && Rails::VERSION::MINOR > 0
   require 'rack/session/cookie'
   class Rack::Session::Abstract::SessionHash
     include SessionCountdown
   end
 
+else
+  class ActionDispatch::Request::Session
+    include SessionCountdown
+  end
 end
 
